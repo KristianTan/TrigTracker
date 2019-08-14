@@ -91,7 +91,7 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
 
             while((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-
+                // Add to arraylist of TrigPoint objects instead of String[]
                 lines.add(tokens);
             }
         } catch (IOException e) {
@@ -103,8 +103,9 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
             CircleOptions c = new CircleOptions()
                     .center(new LatLng(Double.parseDouble(i[0]), Double.parseDouble(i[1])))
                     .clickable(true)
-                    .radius(100)
+                    .radius(300)
                     .strokeColor(Color.BLACK)
+                    .strokeWidth(5)
                     .fillColor(Color.TRANSPARENT);
 
             googleMap.addCircle(c);
@@ -114,7 +115,15 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
                 public void onCircleClick(Circle circle) {
                     Toast.makeText(getActivity(), circle.getCenter().toString(),
                             Toast.LENGTH_LONG).show();
+                    if(circle.getFillColor() == Color.RED) {
+                        circle.setFillColor(Color.TRANSPARENT);
+                    } else {
+                        circle.setFillColor(Color.RED);
+                    }
 
+
+
+                    // Make onClickListener accept TrigPoint.  Maybe TrigPoint has onClick() ??
                 }
             });
         }
