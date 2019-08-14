@@ -91,7 +91,7 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
 
             while((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                // Add to arraylist of TrigPoint objects instead of String[]
+                // TODO: Add to arraylist of TrigPoint objects instead of String[]
                 lines.add(tokens);
             }
         } catch (IOException e) {
@@ -121,16 +121,11 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
                         circle.setFillColor(Color.RED);
                     }
 
-
-
-                    // Make onClickListener accept TrigPoint.  Maybe TrigPoint has onClick() ??
+                    // TODO: Get TrigPoint data in click listener.  Maybe TrigPoint has onClick() ??
                 }
             });
         }
 
-
-
-
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 9.5f));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 9.7f));
     }
 }
