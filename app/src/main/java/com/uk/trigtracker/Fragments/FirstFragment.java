@@ -1,5 +1,6 @@
-package com.uk.trigtracker;
+package com.uk.trigtracker.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,9 +16,13 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.opencsv.CSVReader;
+import com.uk.trigtracker.Models.TrigPoint;
+import com.uk.trigtracker.R;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -76,6 +82,7 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
                 Charset.forName("UTF-8")));
 
         ArrayList<String[]> lines = new ArrayList<>();
+
         String line;
         try {
 
@@ -84,13 +91,36 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
 
             while((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
+
                 lines.add(tokens);
             }
-            System.out.println(lines);
         } catch (IOException e) {
             Log.wtf("MainActivity", "Error reading file at line 31: " + e);
             e.printStackTrace();
         }
+
+        for(String[] i : lines) {
+            CircleOptions c = new CircleOptions()
+                    .center(new LatLng(Double.parseDouble(i[0]), Double.parseDouble(i[1])))
+                    .clickable(true)
+                    .radius(100)
+                    .strokeColor(Color.BLACK)
+                    .fillColor(Color.TRANSPARENT);
+
+            googleMap.addCircle(c);
+
+            googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
+                @Override
+                public void onCircleClick(Circle circle) {
+                    Toast.makeText(getActivity(), circle.getCenter().toString(),
+                            Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }
+
+
+
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 9.5f));
     }
