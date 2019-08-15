@@ -33,13 +33,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-public class FirstFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     MapView mMapView;
     View mView;
 
-    public FirstFragment() {
+    public MapFragment() {
 
     }
 
@@ -81,27 +81,25 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
                 is,
                 Charset.forName("UTF-8")));
 
-        ArrayList<String[]> lines = new ArrayList<>();
+        ArrayList<TrigPoint> points = new ArrayList<>();
 
         String line;
         try {
-
             // Step over headers
             reader.readLine();
 
             while((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                // TODO: Add to arraylist of TrigPoint objects instead of String[]
-                lines.add(tokens);
+                points.add(new TrigPoint(tokens));
             }
         } catch (IOException e) {
-            Log.wtf("MainActivity", "Error reading file at line 31: " + e);
+            Log.wtf("MapFragment", "Error reading file at line 87: " + e);
             e.printStackTrace();
         }
 
-        for(String[] i : lines) {
+        for(TrigPoint t : points) {
             CircleOptions c = new CircleOptions()
-                    .center(new LatLng(Double.parseDouble(i[0]), Double.parseDouble(i[1])))
+                    .center(new LatLng(t.getlatitude(), t.getLongitude()))
                     .clickable(true)
                     .radius(300)
                     .strokeColor(Color.BLACK)
@@ -113,17 +111,20 @@ public class FirstFragment extends Fragment implements OnMapReadyCallback {
             googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
                 @Override
                 public void onCircleClick(Circle circle) {
-                    Toast.makeText(getActivity(), circle.getCenter().toString(),
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(), circle.getCenter().toString(),
+//                            Toast.LENGTH_LONG).show();
                     if(circle.getFillColor() == Color.RED) {
                         circle.setFillColor(Color.TRANSPARENT);
                     } else {
                         circle.setFillColor(Color.RED);
                     }
+                    Toast.makeText(getActivity(), circle.getCenter().toString(),
+                            Toast.LENGTH_LONG).show();
 
                     // TODO: Get TrigPoint data in click listener.  Maybe TrigPoint has onClick() ??
                 }
             });
+
         }
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 9.7f));
