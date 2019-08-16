@@ -2,7 +2,6 @@ package com.uk.trigtracker.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,23 +14,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.opencsv.CSVReader;
 import com.uk.trigtracker.Models.TrigPoint;
 import com.uk.trigtracker.R;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -48,7 +43,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.first_fragment, container, false);
+        mView = inflater.inflate(R.layout.map_fragment, container, false);
         return mView;
     }
 
@@ -76,6 +71,52 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         LatLng marker = new LatLng(53.3499986, -1.83333);
 
+        ArrayList<TrigPoint> points = readFromCsv();
+
+        for(TrigPoint t : points) {
+//            CircleOptions c = new CircleOptions()
+//                    .center(new LatLng(t.getlatitude(), t.getLongitude()))
+//                    .clickable(true)
+//                    .radius(300)
+//                    .strokeColor(Color.BLACK)
+//                    .strokeWidth(5)
+//                    .fillColor(Color.TRANSPARENT);
+
+            Circle c = googleMap.addCircle(new CircleOptions()
+                    .center(new LatLng(t.getlatitude(), t.getLongitude()))
+                    .clickable(true)
+                    .radius(300)
+                    .strokeColor(Color.BLACK)
+                    .strokeWidth(5)
+                    .fillColor(Color.TRANSPARENT)
+            );
+
+            c.setTag(t);
+
+
+            googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
+                @Override
+                public void onCircleClick(Circle circle) {
+                    if(circle.getFillColor() == Color.RED) {
+                        circle.setFillColor(Color.TRANSPARENT);
+                    } else {
+                        circle.setFillColor(Color.RED);
+                    }
+
+                    TrigPoint tag = (TrigPoint)circle.getTag();
+
+                    Toast.makeText(getActivity(), tag.getName(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 9.7f));
+    }
+
+    public ArrayList<TrigPoint> readFromCsv() {
+
         InputStream is = getResources().openRawResource(R.raw.peaks_trigs);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 is,
@@ -97,36 +138,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
         }
 
-        for(TrigPoint t : points) {
-            CircleOptions c = new CircleOptions()
-                    .center(new LatLng(t.getlatitude(), t.getLongitude()))
-                    .clickable(true)
-                    .radius(300)
-                    .strokeColor(Color.BLACK)
-                    .strokeWidth(5)
-                    .fillColor(Color.TRANSPARENT);
+        return points;
 
-            googleMap.addCircle(c);
 
-            googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
-                @Override
-                public void onCircleClick(Circle circle) {
-//                    Toast.makeText(getActivity(), circle.getCenter().toString(),
-//                            Toast.LENGTH_LONG).show();
-                    if(circle.getFillColor() == Color.RED) {
-                        circle.setFillColor(Color.TRANSPARENT);
-                    } else {
-                        circle.setFillColor(Color.RED);
-                    }
-                    Toast.makeText(getActivity(), circle.getCenter().toString(),
-                            Toast.LENGTH_LONG).show();
-
-                    // TODO: Get TrigPoint data in click listener.  Maybe TrigPoint has onClick() ??
-                }
-            });
-
-        }
-
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 9.7f));
     }
 }
