@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,7 +52,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mMapView = (MapView)mView.findViewById(R.id.map);
+        mMapView = mView.findViewById(R.id.map);
 
         if(mMapView != null) {
             mMapView.onCreate(null);
@@ -74,14 +75,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         ArrayList<TrigPoint> points = readFromCsv();
 
         for(TrigPoint t : points) {
-//            CircleOptions c = new CircleOptions()
-//                    .center(new LatLng(t.getlatitude(), t.getLongitude()))
-//                    .clickable(true)
-//                    .radius(300)
-//                    .strokeColor(Color.BLACK)
-//                    .strokeWidth(5)
-//                    .fillColor(Color.TRANSPARENT);
-
+            // Add circles to the map
             Circle c = googleMap.addCircle(new CircleOptions()
                     .center(new LatLng(t.getlatitude(), t.getLongitude()))
                     .clickable(true)
@@ -91,8 +85,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     .fillColor(Color.TRANSPARENT)
             );
 
+            // Store corresponding TrigPoint object in the tag of the circle
             c.setTag(t);
-
 
             googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
                 @Override
@@ -107,12 +101,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                     Toast.makeText(getActivity(), tag.getName(),
                             Toast.LENGTH_LONG).show();
+
+                    InfoBoxFragment infoBoxFragment = new InfoBoxFragment();
+
+                    // TODO: Set contents of text views in infoBoxFragment
+//                    TextView name = getView().findViewById(R.id.info_name);
+//                    name.setText(tag.getName());
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .add(R.id.main_layout, infoBoxFragment)
+                            .addToBackStack("")
+                            .commit();
                 }
             });
 
         }
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 9.7f));
+
     }
 
     public ArrayList<TrigPoint> readFromCsv() {
