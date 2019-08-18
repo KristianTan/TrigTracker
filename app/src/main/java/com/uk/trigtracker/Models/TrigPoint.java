@@ -20,7 +20,9 @@ public class TrigPoint{
         this.type = tokens[4];
         this.heightM = Double.parseDouble(tokens[5]);
         this.heightFt = Double.parseDouble(tokens[6]);
-        this.park = tokens[7];
+        if(tokens.length == 8) {
+            this.park = tokens[7];
+        }
     }
 
     public Double getlatitude() {

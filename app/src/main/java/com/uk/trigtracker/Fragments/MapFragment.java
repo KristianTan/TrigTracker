@@ -106,7 +106,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                     // TODO: Set contents of text views in infoBoxFragment
 //                    TextView name = getView().findViewById(R.id.info_name);
-//                    name.setText(tag.getName());
+//                    name.setText("a");
+//                    infoBoxFragment.setData(tag);
 
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .add(R.id.main_layout, infoBoxFragment)
@@ -122,8 +123,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     public ArrayList<TrigPoint> readFromCsv() {
-
-        InputStream is = getResources().openRawResource(R.raw.peaks_trigs);
+        InputStream is = getResources().openRawResource(R.raw.np_trigs);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 is,
                 Charset.forName("UTF-8")));
@@ -138,6 +138,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             while((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 points.add(new TrigPoint(tokens));
+                System.out.println(tokens[3]);
             }
         } catch (IOException e) {
             Log.wtf("MapFragment", "Error reading file at line 87: " + e);
