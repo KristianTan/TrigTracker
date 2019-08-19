@@ -94,25 +94,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mGoogleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
                 @Override
                 public void onCircleClick(Circle circle) {
-                    if (circle.getFillColor() == Color.RED) {
-                        circle.setFillColor(Color.TRANSPARENT);
-                    } else {
-                        circle.setFillColor(Color.RED);
-                    }
-
                     TrigPoint tag = (TrigPoint) circle.getTag();
-
-                    Toast.makeText(getActivity(), tag.getName(),
-                            Toast.LENGTH_LONG).show();
 
                     LatLng cameraPos = new LatLng(tag.getlatitude(), tag.getLongitude());
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 12f));
-
-
-                    // TODO: Set contents of text views in infoBoxFragment
-//                    TextView name = getView().findViewById(R.id.info_name);
-//                    name.setText("a");
-//                    infoBoxFragment.setData(tag);
 
                     FragmentManager fm = getFragmentManager();
                     int backStackEntryCount = fm.getBackStackEntryCount();
@@ -127,14 +112,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     bundle.putParcelable("data", tag);
                     infoBoxFragment.setArguments(bundle);
 
+                    infoBoxFragment.setCircle(circle);
+
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .add(R.id.main_layout, infoBoxFragment)
                             .addToBackStack("")
                             .commit();
-
-//                    TextView name = infoBoxFragment.getView().findViewById(R.id.info_name);
-//                    name.setText("a");
-//                    infoBoxFragment.setData(tag);
                 }
             });
 
