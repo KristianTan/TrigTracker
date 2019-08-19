@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -126,17 +127,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             .add(R.id.main_layout, infoBoxFragment)
                             .addToBackStack("")
                             .commit();
-
-                    VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
-
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .add(R.id.main_layout, visitedMenuFragment)
-                            .addToBackStack("")
-                            .commit();
                 }
             });
 
         }
+
+        Button menuButton = getActivity().findViewById(R.id.menuButton);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.main_layout, visitedMenuFragment)
+                        .addToBackStack("")
+                        .commit();
+            }
+        });
 
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 6.5f));
 

@@ -5,9 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.VisitedMenuFragment">
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView"
         android:layout_width="239dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"/>
+        android:layout_height="763dp"
+        android:background="@drawable/visited_list_border"
+        android:paddingTop="22dp" />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:text="@string/visited_title"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        android:background="@drawable/visited_list_border"/>
+    <TextView
+        android:id="@+id/close"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="Close"
+        android:textColor="@color/lightGray"
+        android:textSize="20dp" />
 </FrameLayout>
