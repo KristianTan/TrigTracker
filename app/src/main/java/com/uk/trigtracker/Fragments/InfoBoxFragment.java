@@ -6,17 +6,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.Circle;
 import com.uk.trigtracker.Models.TrigPoint;
@@ -28,10 +23,12 @@ import com.uk.trigtracker.R;
 public class InfoBoxFragment extends Fragment {
 
     Circle circle;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
+    TrigPoint trigPoint;
 
     public InfoBoxFragment() {
         // Required empty public constructor
-
     }
 
 
@@ -41,15 +38,21 @@ public class InfoBoxFragment extends Fragment {
 
         View RootView = inflater.inflate(R.layout.info_box_fragment, container, false);
 
+        prefs = RootView.getContext().getSharedPreferences("MyPref", 0);
+        editor = prefs.edit();
+
+        circle.setStrokeColor(Color.WHITE);
+        circle.setStrokeWidth(12);
+
         // Inflate the layout for this fragment
         Bundle bundle = getArguments();
-        final TrigPoint data = (TrigPoint) bundle.get("data");
+        trigPoint = (TrigPoint)bundle.get("data");
 
         TextView name = RootView.findViewById(R.id.info_name);
-        name.setText(data.getName());
+        name.setText(trigPoint.getName());
 
         TextView park = RootView.findViewById(R.id.national_park);
-        park.setText("Located in the " + data.getPark() + " national park");
+        park.setText("Located in the " + trigPoint.getPark() + " national park");
 
         CheckBox checkBox = RootView.findViewById(R.id.checkBox);
 
@@ -62,10 +65,15 @@ public class InfoBoxFragment extends Fragment {
             public void onClick(View view) {
                 if (((CompoundButton) view).isChecked()) {
                     circle.setFillColor(Color.parseColor("#e63c60"));
+                    editor.putString(trigPoint.getName(), String.valueOf(prefs.getAll().size()));
+                    editor.commit();
+
                     //TODO: For some reason this sets the circle fill colour to gray instead of actual colour of value
 //                    circle.setFillColor(R.color.visited);
                 } else {
                     circle.setFillColor(Color.TRANSPARENT);
+                    editor.remove(trigPoint.getName());
+                    editor.commit();
                 }
             }
         });
@@ -83,7 +91,15 @@ public class InfoBoxFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        circle.setStrokeColor(Color.BLACK);
+        circle.setStrokeWidth(5);
+    }
+
     public void setCircle(Circle circle) {
         this.circle = circle;
     }
+
 }

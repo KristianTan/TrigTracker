@@ -13,8 +13,9 @@ public class TrigPoint implements Parcelable {
     private Double heightM;
     private Double heightFt;
     private String park;
+    private Boolean visited;
 
-    public TrigPoint(String[] tokens) {
+    public TrigPoint(String[] tokens, Boolean visited_) {
         // TODO: Add checks for missing fields
         this.latitude = Double.parseDouble(tokens[0]);
         this.longitude = Double.parseDouble(tokens[1]);
@@ -23,9 +24,9 @@ public class TrigPoint implements Parcelable {
         this.type = tokens[4];
         this.heightM = Double.parseDouble(tokens[5]);
         this.heightFt = Double.parseDouble(tokens[6]);
-        if(tokens.length == 8) {
-            this.park = tokens[7];
-        }
+        this.park = tokens[7];
+        this.visited = visited_;
+
     }
 
     protected TrigPoint(Parcel in) {
@@ -126,6 +127,10 @@ public class TrigPoint implements Parcelable {
     public String getPark() {
         return park;
     }
+
+    public void setVisited(Boolean visited) { this.visited = visited; }
+
+    public Boolean getVisited() { return visited; }
 
     public void setPark(String park) {
         this.park = park;

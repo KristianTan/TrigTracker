@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,16 +28,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.Random;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     MapView mMapView;
     View mView;
-    SharedPreferences pref;
+    SharedPreferences prefs;
     SharedPreferences.Editor editor;
 
     public MapFragment() {
@@ -60,8 +58,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        pref = getContext().getSharedPreferences("MyPref", 0);
-        editor = pref.edit();
+        prefs = getContext().getSharedPreferences("MyPref", 0);
+        editor = prefs.edit();
 
         mMapView = mView.findViewById(R.id.map);
 
@@ -69,7 +67,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mMapView.onCreate(null);
             mMapView.onResume();
             mMapView.getMapAsync(this);
-
         }
     }
 
@@ -87,13 +84,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         for (TrigPoint t : points) {
             // Add circles to the map
+
+            int fillColor = Color.TRANSPARENT;
+
+            if(t.getVisited()) {
+                fillColor = Color.parseColor("#e63c60");
+            }
+
             Circle c = mGoogleMap.addCircle(new CircleOptions()
                     .center(new LatLng(t.getlatitude(), t.getLongitude()))
                     .clickable(true)
                     .radius(300)
                     .strokeColor(Color.BLACK)
                     .strokeWidth(5)
-                    .fillColor(Color.TRANSPARENT)
+                    .fillColor(fillColor)
             );
 
             // Store corresponding TrigPoint object in the tag of the circle
@@ -138,6 +142,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 Charset.forName("UTF-8")));
 
 
+//        Map<String,?> keys = prefs.getAll();
+//
+//        for(Map.Entry<String,?> entry : keys.entrySet()){
+//            System.out.println(entry.getKey());
+//        }
+
         ArrayList<TrigPoint> points = new ArrayList<>();
 
         String line;
@@ -147,13 +157,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                TrigPoint trigPoint = new TrigPoint(tokens);
+
+                Boolean visited = false;
+                if(prefs.contains(tokens[3])) {
+                        visited = true;
+                }
+
+                TrigPoint trigPoint = new TrigPoint(tokens, visited);
                 points.add(trigPoint);
             }
         } catch (IOException e) {
             Log.wtf("MapFragment", "Error reading file at line 87: " + e);
             e.printStackTrace();
         }
+
+
 
         return points;
 
