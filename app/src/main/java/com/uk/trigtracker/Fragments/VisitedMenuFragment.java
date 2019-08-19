@@ -45,13 +45,6 @@ public class VisitedMenuFragment extends Fragment {
 
         for(Map.Entry<String,?> entry : keys.entrySet()){
             titles.add(entry.getKey());
-            titles.add(entry.getKey());
-            titles.add(entry.getKey());
-            titles.add(entry.getKey());
-            titles.add(entry.getKey());
-            titles.add(entry.getKey());
-            titles.add(entry.getKey());
-
         }
 
         RecyclerView recyclerView = rootView.findViewById(R.id.recycleView);

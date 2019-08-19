@@ -9,7 +9,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView"
         android:layout_width="239dp"
-        android:layout_height="763dp"
+        android:layout_height="650dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/visited_list_border"
         android:paddingTop="22dp" />
     <TextView
@@ -20,7 +21,7 @@
         android:gravity="center"
         android:text="@string/visited_title"
         android:textColor="@android:color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:background="@drawable/visited_list_border"/>
     <TextView
         android:id="@+id/close"
@@ -30,5 +31,6 @@
         android:gravity="center"
         android:text="Close"
         android:textColor="@color/lightGray"
-        android:textSize="20dp" />
+        android:background="@drawable/visited_list_border"
+        android:textSize="20sp" />
 </FrameLayout>

@@ -125,10 +125,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                     infoBoxFragment.setCircle(circle);
 
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .add(R.id.main_layout, infoBoxFragment)
-                            .addToBackStack("")
-                            .commit();
+                    VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
+
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.add(R.id.main_layout, infoBoxFragment, null).commit();
+
                 }
             });
 
@@ -140,22 +143,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_left);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.add(R.id.main_layout, visitedMenuFragment, null).commit();
-//                FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                ft.setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_left);
-//
-//                ft.show(visitedMenuFragment);
-//                ft.commit();
-
-
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .add(R.id.main_layout, visitedMenuFragment)
-//                        .addToBackStack("")
-//                        .commit();
             }
         });
 
