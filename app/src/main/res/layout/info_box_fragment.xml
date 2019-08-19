@@ -1,15 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:background="@android:color/holo_orange_dark"
-    tools:context=".Fragments.InfoBoxFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/info_name"
-        android:layout_width="200dp"
-        android:layout_height="30dp" />
+    <FrameLayout
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/info_box_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:context=".Fragments.InfoBoxFragment">
 
-</FrameLayout>
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/info_name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="info_name"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/national_park"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Visited" />
+
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
+

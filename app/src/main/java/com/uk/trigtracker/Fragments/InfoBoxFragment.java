@@ -23,6 +23,7 @@ public class InfoBoxFragment extends Fragment {
 
     public InfoBoxFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -30,8 +31,19 @@ public class InfoBoxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View RootView = inflater.inflate(R.layout.info_box_fragment, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.info_box_fragment, container, false);
+        Bundle bundle = getArguments();
+        TrigPoint data = (TrigPoint)bundle.get("data");
+
+        TextView name = RootView.findViewById(R.id.info_name);
+        name.setText(data.getName());
+
+        TextView park = RootView.findViewById(R.id.national_park);
+        park.setText("Located in the " + data.getPark() + " national park");
+
+        return RootView;
 
     }
 

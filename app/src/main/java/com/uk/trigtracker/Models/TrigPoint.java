@@ -1,7 +1,10 @@
 package com.uk.trigtracker.Models;
 
 
-public class TrigPoint{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class TrigPoint implements Parcelable {
     private Double latitude;
     private Double longitude;
     private String tpNum;
@@ -24,6 +27,45 @@ public class TrigPoint{
             this.park = tokens[7];
         }
     }
+
+    protected TrigPoint(Parcel in) {
+        if (in.readByte() == 0) {
+            latitude = null;
+        } else {
+            latitude = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            longitude = null;
+        } else {
+            longitude = in.readDouble();
+        }
+        tpNum = in.readString();
+        name = in.readString();
+        type = in.readString();
+        if (in.readByte() == 0) {
+            heightM = null;
+        } else {
+            heightM = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            heightFt = null;
+        } else {
+            heightFt = in.readDouble();
+        }
+        park = in.readString();
+    }
+
+    public static final Creator<TrigPoint> CREATOR = new Creator<TrigPoint>() {
+        @Override
+        public TrigPoint createFromParcel(Parcel in) {
+            return new TrigPoint(in);
+        }
+
+        @Override
+        public TrigPoint[] newArray(int size) {
+            return new TrigPoint[size];
+        }
+    };
 
     public Double getlatitude() {
         return latitude;
@@ -89,4 +131,40 @@ public class TrigPoint{
         this.park = park;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (latitude == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(latitude);
+        }
+        if (longitude == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(longitude);
+        }
+        dest.writeString(tpNum);
+        dest.writeString(name);
+        dest.writeString(type);
+        if (heightM == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(heightM);
+        }
+        if (heightFt == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(heightFt);
+        }
+        dest.writeString(park);
+    }
 }
