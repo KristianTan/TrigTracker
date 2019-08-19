@@ -126,6 +126,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             .add(R.id.main_layout, infoBoxFragment)
                             .addToBackStack("")
                             .commit();
+
+                    VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .add(R.id.main_layout, visitedMenuFragment)
+                            .addToBackStack("")
+                            .commit();
                 }
             });
 
