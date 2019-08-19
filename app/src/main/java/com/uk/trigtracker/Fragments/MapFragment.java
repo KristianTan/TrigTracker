@@ -5,11 +5,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -132,16 +134,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         }
 
-        Button menuButton = getActivity().findViewById(R.id.menuButton);
+        ImageButton menuButton = getActivity().findViewById(R.id.menuButton);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .add(R.id.main_layout, visitedMenuFragment)
-                        .addToBackStack("")
-                        .commit();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_left);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(R.id.main_layout, visitedMenuFragment, null).commit();
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_left);
+//
+//                ft.show(visitedMenuFragment);
+//                ft.commit();
+
+
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .add(R.id.main_layout, visitedMenuFragment)
+//                        .addToBackStack("")
+//                        .commit();
             }
         });
 
