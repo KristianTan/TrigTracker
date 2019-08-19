@@ -1,5 +1,6 @@
 package com.uk.trigtracker.Fragments;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,12 +30,16 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     MapView mMapView;
     View mView;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     public MapFragment() {
 
@@ -54,6 +59,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        pref = getContext().getSharedPreferences("MyPref", 0);
+        editor = pref.edit();
 
         mMapView = mView.findViewById(R.id.map);
 
@@ -100,11 +108,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 12f));
 
                     FragmentManager fm = getFragmentManager();
-                    int backStackEntryCount = fm.getBackStackEntryCount();
-
-                    if (backStackEntryCount > 0) {
-                        fm.popBackStack();
-                    }
+                    fm.popBackStack();
 
                     InfoBoxFragment infoBoxFragment = new InfoBoxFragment();
 
@@ -123,7 +127,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         }
 
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 9.7f));
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 6.5f));
 
     }
 
@@ -132,6 +136,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 is,
                 Charset.forName("UTF-8")));
+
 
         ArrayList<TrigPoint> points = new ArrayList<>();
 
@@ -142,7 +147,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                points.add(new TrigPoint(tokens));
+                TrigPoint trigPoint = new TrigPoint(tokens);
+                points.add(trigPoint);
             }
         } catch (IOException e) {
             Log.wtf("MapFragment", "Error reading file at line 87: " + e);

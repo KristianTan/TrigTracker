@@ -1,9 +1,11 @@
 package com.uk.trigtracker.Fragments;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,7 +43,7 @@ public class InfoBoxFragment extends Fragment {
 
         // Inflate the layout for this fragment
         Bundle bundle = getArguments();
-        TrigPoint data = (TrigPoint) bundle.get("data");
+        final TrigPoint data = (TrigPoint) bundle.get("data");
 
         TextView name = RootView.findViewById(R.id.info_name);
         name.setText(data.getName());
@@ -51,7 +53,7 @@ public class InfoBoxFragment extends Fragment {
 
         CheckBox checkBox = RootView.findViewById(R.id.checkBox);
 
-        if(circle.getFillColor() == Color.RED) {
+        if (circle.getFillColor() == Color.parseColor("#e63c60")) {
             checkBox.setChecked(true);
         }
 
@@ -59,12 +61,21 @@ public class InfoBoxFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (((CompoundButton) view).isChecked()) {
-                    circle.setFillColor(Color.RED);
-
+                    circle.setFillColor(Color.parseColor("#e63c60"));
+                    //TODO: For some reason this sets the circle fill colour to gray instead of actual colour of value
+//                    circle.setFillColor(R.color.visited);
                 } else {
                     circle.setFillColor(Color.TRANSPARENT);
-
                 }
+            }
+        });
+
+        TextView close = RootView.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.popBackStack();
             }
         });
 
