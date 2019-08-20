@@ -10,9 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,8 +29,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -81,7 +77,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        LatLng cameraPos = new LatLng(53.3499986, -1.83333);
 
         ArrayList<TrigPoint> points = readFromCsv();
 
@@ -119,13 +114,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                     InfoBoxFragment infoBoxFragment = new InfoBoxFragment();
 
+                    // Pass data to the info box fragment
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("data", tag);
                     infoBoxFragment.setArguments(bundle);
-
                     infoBoxFragment.setCircle(circle);
-
-                    VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
 
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
@@ -149,6 +142,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 fragmentTransaction.add(R.id.main_layout, visitedMenuFragment, null).commit();
             }
         });
+        LatLng cameraPos = new LatLng(53.3499986, -1.83333);
 
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 6.5f));
 
@@ -159,13 +153,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 is,
                 Charset.forName("UTF-8")));
-
-
-//        Map<String,?> keys = prefs.getAll();
-//
-//        for(Map.Entry<String,?> entry : keys.entrySet()){
-//            System.out.println(entry.getKey());
-//        }
 
         ArrayList<TrigPoint> points = new ArrayList<>();
 
@@ -190,11 +177,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             e.printStackTrace();
         }
 
-
-
         return points;
-
-
     }
 
 }

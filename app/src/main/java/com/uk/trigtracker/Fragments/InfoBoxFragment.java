@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.Circle;
+import com.google.gson.Gson;
 import com.uk.trigtracker.Models.TrigPoint;
 import com.uk.trigtracker.R;
 
@@ -65,7 +66,13 @@ public class InfoBoxFragment extends Fragment {
             public void onClick(View view) {
                 if (((CompoundButton) view).isChecked()) {
                     circle.setFillColor(Color.parseColor("#e63c60"));
-                    editor.putString(trigPoint.getName(), String.valueOf(prefs.getAll().size()));
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(trigPoint);
+
+//                    editor.putString(trigPoint.getName(), String.valueOf(prefs.getAll().size()));
+                    editor.putString(trigPoint.getName(), json);
+
                     editor.commit();
 
                     //TODO: For some reason this sets the circle fill colour to gray instead of actual colour of value

@@ -4,6 +4,8 @@ package com.uk.trigtracker.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.maps.model.Circle;
+
 public class TrigPoint implements Parcelable {
     private Double latitude;
     private Double longitude;

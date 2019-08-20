@@ -41,8 +41,9 @@ public class VisitedMenuFragment extends Fragment {
 
         prefs = rootView.getContext().getSharedPreferences("MyPref", 0);
         editor = prefs.edit();
-        Map<String,?> keys = prefs.getAll();
 
+        // Add all the visited points to the menu
+        Map<String,?> keys = prefs.getAll();
         for(Map.Entry<String,?> entry : keys.entrySet()){
             titles.add(entry.getKey());
         }
