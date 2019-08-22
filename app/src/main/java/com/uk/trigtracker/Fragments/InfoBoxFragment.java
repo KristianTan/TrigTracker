@@ -45,10 +45,6 @@ public class InfoBoxFragment extends Fragment {
         circle.setStrokeColor(Color.WHITE);
         circle.setStrokeWidth(12);
 
-        // Inflate the layout for this fragment
-        Bundle bundle = getArguments();
-        trigPoint = (TrigPoint)bundle.get("data");
-
         TextView name = RootView.findViewById(R.id.info_name);
         name.setText(trigPoint.getName());
 
@@ -108,5 +104,7 @@ public class InfoBoxFragment extends Fragment {
     public void setCircle(Circle circle) {
         this.circle = circle;
     }
+
+    public void setTrigPoint(TrigPoint trigPoint) { this.trigPoint = trigPoint; };
 
 }

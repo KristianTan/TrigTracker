@@ -1,5 +1,6 @@
 package com.uk.trigtracker;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,13 +33,11 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
                 String json = prefs.getString(titleText.getText().toString(), "");
                 TrigPoint trigPoint = gson.fromJson(json, TrigPoint.class);
 
-//                Toast.makeText(itemView.getContext(), trigPoint.getName(), Toast.LENGTH_SHORT);
+//                Toast.makeText(itemView.getContext(), "a", Toast.LENGTH_SHORT);
                 InfoBoxFragment infoBoxFragment = new InfoBoxFragment();
 
-                // Pass data to the info box fragment
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("data", trigPoint);
-//                infoBoxFragment.setArguments(bundle);
+//                 Pass data to the info box fragment
+//                infoBoxFragment.setTrigPoint(trigPoint);
 //                infoBoxFragment.setCircle(circle);
 //
 //                FragmentTransaction fragmentTransaction = ((MainActivity)itemView.getContext()).getSupportFragmentManager().beginTransaction();

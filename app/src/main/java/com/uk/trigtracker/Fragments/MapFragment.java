@@ -116,9 +116,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     InfoBoxFragment infoBoxFragment = new InfoBoxFragment();
 
                     // Pass data to the info box fragment
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("data", tag);
-                    infoBoxFragment.setArguments(bundle);
+                    infoBoxFragment.setTrigPoint(tag);
                     infoBoxFragment.setCircle(circle);
 
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

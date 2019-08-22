@@ -138,6 +138,7 @@ public class TrigPoint implements Parcelable {
         this.park = park;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -173,6 +174,7 @@ public class TrigPoint implements Parcelable {
             dest.writeDouble(heightFt);
         }
         dest.writeString(park);
+
     }
 
 }
