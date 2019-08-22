@@ -38,6 +38,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
 
+
     public MapFragment() {
 
     }
@@ -73,10 +74,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
+
         mGoogleMap = googleMap;
 
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
 
         ArrayList<TrigPoint> points = readFromCsv();
 
@@ -142,9 +143,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 fragmentTransaction.add(R.id.main_layout, visitedMenuFragment, null).commit();
             }
         });
-        LatLng cameraPos = new LatLng(53.3499986, -1.83333);
+//        LatLng cameraPos = new LatLng(53.3499986, -1.83333);
 
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 6.5f));
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(53.3499986, -1.83333), 6.5f));
 
     }
 
