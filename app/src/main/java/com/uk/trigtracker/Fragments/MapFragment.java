@@ -89,7 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             int fillColor = Color.TRANSPARENT;
 
             if(t.getVisited()) {
-                fillColor = Color.parseColor("#e63c60");
+                fillColor = getResources().getColor(R.color.visited);
             }
 
             Circle c = mGoogleMap.addCircle(new CircleOptions()

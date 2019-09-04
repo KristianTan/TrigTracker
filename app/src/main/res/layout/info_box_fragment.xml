@@ -49,15 +49,17 @@
                 android:theme="@style/CheckBox"/>
 
         </LinearLayout>
+
         <TextView
             android:id="@+id/close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/lightGray"
-            android:text="Close"
             android:layout_gravity="bottom"
+            android:paddingBottom="5dp"
             android:gravity="center"
-            android:textSize="18dp"/>
+            android:text="Close"
+            android:textColor="@color/lightGray"
+            android:textSize="18dp" />
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

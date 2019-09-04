@@ -58,11 +58,12 @@ public class VisitedMenuFragment extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this.getContext(), titles, this);
         recyclerView.setAdapter(adapter);
 
-        TextView close = rootView.findViewById(R.id.close);
+        final TextView close = rootView.findViewById(R.id.close);
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                close.setTextColor(getResources().getColor(R.color.visited));
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStack();
             }

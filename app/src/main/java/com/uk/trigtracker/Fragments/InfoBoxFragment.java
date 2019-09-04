@@ -53,7 +53,7 @@ public class InfoBoxFragment extends Fragment {
 
         CheckBox checkBox = RootView.findViewById(R.id.checkBox);
 
-        if (circle.getFillColor() == Color.parseColor("#e63c60")) {
+        if (circle.getFillColor() == getResources().getColor(R.color.visited)) {
             checkBox.setChecked(true);
         }
 
@@ -61,18 +61,14 @@ public class InfoBoxFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (((CompoundButton) view).isChecked()) {
-                    circle.setFillColor(Color.parseColor("#e63c60"));
+                    circle.setFillColor(getResources().getColor(R.color.visited));
 
                     Gson gson = new Gson();
                     String json = gson.toJson(trigPoint);
 
-//                    editor.putString(trigPoint.getName(), String.valueOf(prefs.getAll().size()));
                     editor.putString(trigPoint.getName(), json);
 
                     editor.commit();
-
-                    //TODO: For some reason this sets the circle fill colour to gray instead of actual colour of value
-//                    circle.setFillColor(R.color.visited);
                 } else {
                     circle.setFillColor(Color.TRANSPARENT);
                     editor.remove(trigPoint.getName());
@@ -81,10 +77,11 @@ public class InfoBoxFragment extends Fragment {
             }
         });
 
-        TextView close = RootView.findViewById(R.id.close);
+        final TextView close = RootView.findViewById(R.id.close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                close.setTextColor(getResources().getColor(R.color.visited));
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStack();
             }
