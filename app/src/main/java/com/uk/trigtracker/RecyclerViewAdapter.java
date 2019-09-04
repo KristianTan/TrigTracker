@@ -7,15 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.Circle;
+import com.uk.trigtracker.Fragments.VisitedMenuFragment;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private LayoutInflater layoutInflater;
     private List<String> titleData;
+    private VisitedMenuFragment fragment;
 
-    public RecyclerViewAdapter(Context context, List<String> titles) {
+    public RecyclerViewAdapter(Context context, List<String> titles, VisitedMenuFragment fragment) {
         this.layoutInflater = LayoutInflater.from(context);
         this.titleData = titles;
+        this.fragment = fragment;
     }
 
 
@@ -23,7 +29,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = layoutInflater.inflate(R.layout.recycle_row, viewGroup, false);
-        RecyclerViewHolder vHolder = new RecyclerViewHolder(view);
+        RecyclerViewHolder vHolder = new RecyclerViewHolder(view, fragment);
+
 
         return vHolder;
 

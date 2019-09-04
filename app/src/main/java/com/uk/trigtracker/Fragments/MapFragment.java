@@ -29,14 +29,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
-
     GoogleMap mGoogleMap;
     MapView mMapView;
     View mView;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    ArrayList<Circle> allMarkers;
 
 
     public MapFragment() {
@@ -74,13 +75,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
+        allMarkers = new ArrayList<>();
 
         mGoogleMap = googleMap;
 
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         ArrayList<TrigPoint> points = readFromCsv();
-
+//        editor.clear().commit();
         for (TrigPoint t : points) {
             // Add circles to the map
 
@@ -101,6 +103,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             // Store corresponding TrigPoint object in the tag of the circle
             c.setTag(t);
+            allMarkers.add(c);
 
             mGoogleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
                 @Override
@@ -127,15 +130,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
 
+
         }
 
         ImageButton menuButton = getActivity().findViewById(R.id.menuButton);
+        final MapFragment mapFragment = this;
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
+                visitedMenuFragment.setAllMarkers(allMarkers);
+                visitedMenuFragment.setMapFragment(mapFragment);
 
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_left);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.add(R.id.main_layout, visitedMenuFragment, null).commit();
@@ -178,5 +188,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         return points;
     }
-
+    public GoogleMap getmGoogleMap() {
+        return mGoogleMap;
+    }
 }

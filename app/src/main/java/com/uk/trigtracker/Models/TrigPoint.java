@@ -176,5 +176,4 @@ public class TrigPoint implements Parcelable {
         dest.writeString(park);
 
     }
-
 }

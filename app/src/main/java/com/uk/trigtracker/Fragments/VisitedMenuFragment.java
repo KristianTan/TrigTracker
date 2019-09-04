@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.Circle;
 import com.uk.trigtracker.R;
 import com.uk.trigtracker.RecyclerViewAdapter;
 
@@ -26,6 +27,9 @@ public class VisitedMenuFragment extends Fragment {
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    ArrayList<Circle> allMarkers;
+    MapFragment mapFragment;
+
     public VisitedMenuFragment() {
         // Required empty public constructor
     }
@@ -51,7 +55,7 @@ public class VisitedMenuFragment extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this.getContext(), titles);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this.getContext(), titles, this);
         recyclerView.setAdapter(adapter);
 
         TextView close = rootView.findViewById(R.id.close);
@@ -65,6 +69,22 @@ public class VisitedMenuFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    public void setAllMarkers(ArrayList<Circle> allMarkers) {
+        this.allMarkers = allMarkers;
+    }
+
+    public ArrayList<Circle> getAllMarkers() {
+        return this.allMarkers;
+    }
+
+    public MapFragment getMapFragment() {
+        return mapFragment;
+    }
+
+    public void setMapFragment(MapFragment mapFragment) {
+        this.mapFragment = mapFragment;
     }
 
 }
