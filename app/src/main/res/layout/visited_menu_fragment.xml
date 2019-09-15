@@ -7,6 +7,11 @@
     android:background="@drawable/visited_list_border"
     android:orientation="vertical">
 
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></SearchView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

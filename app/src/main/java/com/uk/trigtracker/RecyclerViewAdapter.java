@@ -15,10 +15,10 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private LayoutInflater layoutInflater;
-    private List<String> titleData;
+    private ArrayList<String> titleData;
     private VisitedMenuFragment fragment;
 
-    public RecyclerViewAdapter(Context context, List<String> titles, VisitedMenuFragment fragment) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> titles, VisitedMenuFragment fragment) {
         this.layoutInflater = LayoutInflater.from(context);
         this.titleData = titles;
         this.fragment = fragment;
@@ -55,6 +55,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     }
 
     public void setAllTitles(ArrayList<String> allTitles) {
-        this.titleData = allTitles;
+        this.titleData = (ArrayList)allTitles.clone();
+    }
+
+    public void clear() {
+        this.titleData.clear();
+    }
+
+    public ArrayList<String> getTitleData() {
+        return this.titleData;
     }
 }

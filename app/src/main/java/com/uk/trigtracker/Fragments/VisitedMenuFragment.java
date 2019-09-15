@@ -2,6 +2,7 @@ package com.uk.trigtracker.Fragments;
 
 
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.Circle;
@@ -33,6 +35,7 @@ public class VisitedMenuFragment extends Fragment {
     ArrayList<String> allTrigNames;
     ArrayList<String> visitedTrigNames;
     MapFragment mapFragment;
+    Button selected;
 
     public VisitedMenuFragment() {
         // Required empty public constructor
@@ -57,11 +60,15 @@ public class VisitedMenuFragment extends Fragment {
             visitedTrigNames.add(entry.getKey());
         }
 
+        final Button all = rootView.findViewById(R.id.showAll);
+        final Button visited = rootView.findViewById(R.id.showVisited);
+
         final RecyclerView recyclerView = rootView.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         final RecyclerViewAdapter adapter = new RecyclerViewAdapter(this.getContext(), titles, this);
         adapter.setAllTitles(visitedTrigNames);
+        selected = visited;
         recyclerView.setAdapter(adapter);
 
         final TextView close = rootView.findViewById(R.id.close);
@@ -76,16 +83,13 @@ public class VisitedMenuFragment extends Fragment {
         });
 
 
-        final Button all = rootView.findViewById(R.id.showAll);
-        final Button visited = rootView.findViewById(R.id.showVisited);
-
         all.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 adapter.setAllTitles(allTrigNames);
                 recyclerView.setAdapter(adapter);
                 all.setBackgroundResource(R.drawable.menu_button_all_selected);
                 visited.setBackgroundResource(R.drawable.menu_button_visited_unselected);
-
+                selected = all;
             }
         });
 
@@ -95,6 +99,48 @@ public class VisitedMenuFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
                 visited.setBackgroundResource(R.drawable.menu_button_visited_selected);
                 all.setBackgroundResource(R.drawable.menu_button_all_unselected);
+                selected = visited;
+            }
+        });
+
+        final SearchView searchView = rootView.findViewById(R.id.searchBar);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                ArrayList<String> results = new ArrayList<>();
+
+                for(String s : adapter.getTitleData()) {
+                    if(s.toLowerCase().contains(query.toLowerCase())) {
+                        results.add(s);
+                    }
+                }
+
+                if(results.size() == 0) {
+                    results.add("No results found :(");
+                }
+
+                adapter.setAllTitles(results);
+                recyclerView.setAdapter(adapter);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+
+                adapter.setAllTitles(selected.getId() == R.id.showVisited ? visitedTrigNames : allTrigNames);
+
+                recyclerView.setAdapter(adapter);
+
+                return false;
             }
         });
 
