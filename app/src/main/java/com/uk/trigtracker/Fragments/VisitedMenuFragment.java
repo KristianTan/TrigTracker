@@ -31,6 +31,7 @@ public class VisitedMenuFragment extends Fragment {
     SharedPreferences.Editor editor;
     ArrayList<Circle> allMarkers;
     ArrayList<String> allTrigNames;
+    ArrayList<String> visitedTrigNames;
     MapFragment mapFragment;
 
     public VisitedMenuFragment() {
@@ -45,6 +46,7 @@ public class VisitedMenuFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.visited_menu_fragment, container, false);
 
         final ArrayList<String> titles = new ArrayList<>();
+        visitedTrigNames = new ArrayList<>();
 
         prefs = rootView.getContext().getSharedPreferences("MyPref", 0);
         editor = prefs.edit();
@@ -52,13 +54,14 @@ public class VisitedMenuFragment extends Fragment {
         // Add all the visited points to the menu
         Map<String,?> keys = prefs.getAll();
         for(Map.Entry<String,?> entry : keys.entrySet()){
-            titles.add(entry.getKey());
+            visitedTrigNames.add(entry.getKey());
         }
 
         final RecyclerView recyclerView = rootView.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         final RecyclerViewAdapter adapter = new RecyclerViewAdapter(this.getContext(), titles, this);
+        adapter.setAllTitles(visitedTrigNames);
         recyclerView.setAdapter(adapter);
 
         final TextView close = rootView.findViewById(R.id.close);
@@ -73,22 +76,28 @@ public class VisitedMenuFragment extends Fragment {
         });
 
 
-        final Button all = rootView.findViewById(R.id.all);
-        Button visited = rootView.findViewById(R.id.visited);
+        final Button all = rootView.findViewById(R.id.showAll);
+        final Button visited = rootView.findViewById(R.id.showVisited);
 
         all.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                for(Circle c : allMarkers) {
-//                    TrigPoint trigPoint = (TrigPoint)c.getTag();
-//                    adapter.setAllTitles(allTrigNames);
-//                }
                 adapter.setAllTitles(allTrigNames);
                 recyclerView.setAdapter(adapter);
-
-
+                all.setBackgroundResource(R.drawable.menu_button_all_selected);
+                visited.setBackgroundResource(R.drawable.menu_button_visited_unselected);
 
             }
         });
+
+        visited.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                adapter.setAllTitles(visitedTrigNames);
+                recyclerView.setAdapter(adapter);
+                visited.setBackgroundResource(R.drawable.menu_button_visited_selected);
+                all.setBackgroundResource(R.drawable.menu_button_all_unselected);
+            }
+        });
+
 
         return rootView;
     }
