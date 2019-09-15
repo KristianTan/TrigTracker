@@ -9,14 +9,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="2">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:background="@drawable/menu_button_visited_selected"
             android:id="@+id/showVisited"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Visited"
             android:layout_weight="1"/>
@@ -24,7 +23,7 @@
         <Button
             android:background="@drawable/menu_button_all_unselected"
             android:id="@+id/showAll"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All"
             android:layout_weight="1"/>
@@ -43,17 +42,19 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView"
         android:layout_width="match_parent"
-        android:layout_height="523dp" />
+        android:layout_height="0dp"
+        android:layout_weight="8"/>
 
     <TextView
         android:id="@+id/close"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="Close"
         android:textColor="@color/lightGray"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_weight="1"/>
 
 
 </LinearLayout>
