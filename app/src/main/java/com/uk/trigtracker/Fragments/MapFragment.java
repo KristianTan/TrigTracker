@@ -39,7 +39,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     SharedPreferences.Editor editor;
     ArrayList<Circle> allMarkers;
 
-
     public MapFragment() {
 
     }
@@ -82,6 +81,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         ArrayList<TrigPoint> points = readFromCsv();
+        final ArrayList<String> allTitles = new ArrayList<>();
 //        editor.clear().commit();
         for (TrigPoint t : points) {
             // Add circles to the map
@@ -104,6 +104,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             // Store corresponding TrigPoint object in the tag of the circle
             c.setTag(t);
             allMarkers.add(c);
+            allTitles.add(t.getName());
 
             mGoogleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
                 @Override
@@ -141,6 +142,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 VisitedMenuFragment visitedMenuFragment = new VisitedMenuFragment();
                 visitedMenuFragment.setAllMarkers(allMarkers);
                 visitedMenuFragment.setMapFragment(mapFragment);
+                visitedMenuFragment.setAllTrigNames(allTitles);
 
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();

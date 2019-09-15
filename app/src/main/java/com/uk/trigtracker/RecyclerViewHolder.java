@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     SharedPreferences prefs;
     Gson gson;
     private VisitedMenuFragment fragment;
+    RecyclerViewAdapter viewAdapter;
 
     public RecyclerViewHolder(@NonNull final View itemView, final VisitedMenuFragment fragment) {
         // ItemView is recycle_row
@@ -44,19 +46,18 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         titleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String json = prefs.getString(titleText.getText().toString(), "");
-                TrigPoint trigPoint = gson.fromJson(json, TrigPoint.class);
 
-//                Toast.makeText(itemView.getContext(), "a", Toast.LENGTH_SHORT);
                 InfoBoxFragment infoBoxFragment = new InfoBoxFragment();
 
-                LatLng center = new LatLng(trigPoint.getlatitude(), trigPoint.getLongitude());
                 Circle trigMarker = null;
+                String test = titleText.getText().toString();
+                TrigPoint trigPoint = null;
+
                 for(Circle c : allMarkers) {
-//                    LatLng t = c.getCenter();
-                    if(center.equals(c.getCenter())) {
-//                        System.out.println("a");
+                    TrigPoint current = (TrigPoint)c.getTag();
+                    if(current.getName().equals(test)) {
                         trigMarker = c;
+                        trigPoint = current;
                         break;
                     }
                 }
@@ -79,5 +80,10 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
             }
         });
+
+    }
+
+    public void setViewAdapter(RecyclerViewAdapter viewAdapter) {
+        this.viewAdapter = viewAdapter;
     }
 }

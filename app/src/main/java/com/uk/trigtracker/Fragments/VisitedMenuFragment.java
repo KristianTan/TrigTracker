@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.Circle;
+import com.uk.trigtracker.Models.TrigPoint;
 import com.uk.trigtracker.R;
 import com.uk.trigtracker.RecyclerViewAdapter;
 
@@ -28,6 +30,7 @@ public class VisitedMenuFragment extends Fragment {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     ArrayList<Circle> allMarkers;
+    ArrayList<String> allTrigNames;
     MapFragment mapFragment;
 
     public VisitedMenuFragment() {
@@ -41,7 +44,7 @@ public class VisitedMenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.visited_menu_fragment, container, false);
 
-        ArrayList<String> titles = new ArrayList<>();
+        final ArrayList<String> titles = new ArrayList<>();
 
         prefs = rootView.getContext().getSharedPreferences("MyPref", 0);
         editor = prefs.edit();
@@ -52,10 +55,10 @@ public class VisitedMenuFragment extends Fragment {
             titles.add(entry.getKey());
         }
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.recycleView);
+        final RecyclerView recyclerView = rootView.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this.getContext(), titles, this);
+        final RecyclerViewAdapter adapter = new RecyclerViewAdapter(this.getContext(), titles, this);
         recyclerView.setAdapter(adapter);
 
         final TextView close = rootView.findViewById(R.id.close);
@@ -66,6 +69,24 @@ public class VisitedMenuFragment extends Fragment {
                 close.setTextColor(getResources().getColor(R.color.visited));
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStack();
+            }
+        });
+
+
+        final Button all = rootView.findViewById(R.id.all);
+        Button visited = rootView.findViewById(R.id.visited);
+
+        all.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+//                for(Circle c : allMarkers) {
+//                    TrigPoint trigPoint = (TrigPoint)c.getTag();
+//                    adapter.setAllTitles(allTrigNames);
+//                }
+                adapter.setAllTitles(allTrigNames);
+                recyclerView.setAdapter(adapter);
+
+
+
             }
         });
 
@@ -86,6 +107,10 @@ public class VisitedMenuFragment extends Fragment {
 
     public void setMapFragment(MapFragment mapFragment) {
         this.mapFragment = mapFragment;
+    }
+
+    public void setAllTrigNames(ArrayList<String> allTrigNames) {
+        this.allTrigNames = allTrigNames;
     }
 
 }

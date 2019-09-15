@@ -30,6 +30,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = layoutInflater.inflate(R.layout.recycle_row, viewGroup, false);
         RecyclerViewHolder vHolder = new RecyclerViewHolder(view, fragment);
+        vHolder.setViewAdapter(this);
 
 
         return vHolder;
@@ -51,5 +52,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     public void addItem(String title) {
         titleData.add(title);
+    }
+
+    public void setAllTitles(ArrayList<String> allTitles) {
+        this.titleData = allTitles;
     }
 }
