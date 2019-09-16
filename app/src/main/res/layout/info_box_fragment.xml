@@ -7,60 +7,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/info_box_border"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:context=".Fragments.InfoBoxFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <!-- TODO: Update blank fragment layout -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.55"
+            android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/info_name"
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="200dp"
+            android:background="@drawable/info_box_border"
+            tools:context=".Fragments.InfoBoxFragment"
+            android:layout_gravity="bottom">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:gravity="center"
-                android:text="info_name"
-                android:textColor="@android:color/black" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/national_park"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="national_park"
-                android:layout_marginTop="5dp"
-                android:textColor="@android:color/black" />
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Visited"
-                android:textColor="@android:color/black"
-                android:theme="@style/CheckBox"/>
+                <TextView
+                    android:id="@+id/info_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:text="info_name"
+                    android:textColor="@android:color/black" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/national_park"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.45"
+                    android:text="national_park"
+                    android:textColor="@android:color/black" />
 
-        <TextView
-            android:id="@+id/close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:paddingBottom="5dp"
-            android:gravity="center"
-            android:text="Close"
-            android:textColor="@color/lightGray"
-            android:textSize="18dp" />
-    </FrameLayout>
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.15"
+                    android:text="Visited"
+                    android:textColor="@android:color/black"
+                    android:theme="@style/CheckBox" />
+
+                <TextView
+                    android:id="@+id/close"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:text="Close"
+                    android:textColor="@color/lightGray"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"
+            android:visibility="invisible" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
 
