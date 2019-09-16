@@ -17,7 +17,8 @@
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.07"/>
+            android:layout_weight="0.07"
+            android:clickable="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"

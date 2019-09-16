@@ -106,6 +106,15 @@ public class VisitedMenuFragment extends Fragment {
 
         final SearchView searchView = rootView.findViewById(R.id.searchBar);
 
+
+        // Makes entire search bar clickable, instead of just icon
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
