@@ -70,9 +70,9 @@
                     android:layout_gravity="bottom"
                     android:layout_weight="0.2"
                     android:gravity="center"
-                    android:text="Close"
-                    android:textColor="@color/lightGray"
-                    android:textSize="18dp" />
+                    android:textColor="@android:color/black"
+                    android:text="@string/close"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
