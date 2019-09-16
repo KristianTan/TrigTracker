@@ -46,7 +46,9 @@
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.83" />
+            android:layout_weight="0.83"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/scrollbar"/>
 
         <TextView
             android:id="@+id/close"
