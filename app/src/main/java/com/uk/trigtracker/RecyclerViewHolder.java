@@ -47,6 +47,9 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
 
+                titleText.setTextColor(fragment.getResources().getColor(R.color.visited));
+//                titleText.setBackgroundColor(fragment.getResources().getColor(R.color.visited));
+
                 InfoBoxFragment infoBoxFragment = new InfoBoxFragment();
 
                 Circle trigMarker = null;
