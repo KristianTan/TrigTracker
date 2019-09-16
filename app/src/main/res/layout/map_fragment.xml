@@ -16,6 +16,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.01"
+            android:visibility="invisible" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -35,7 +41,8 @@
                 android:layout_weight="0.1"
                 android:background="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_visited_lines"/>
+                android:src="@drawable/ic_visited_lines"
+                android:contentDescription="@string/menu_button_content_description" />
 
             <View
                 android:layout_width="0dp"
@@ -48,7 +55,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="0.79"
             android:visibility="invisible" />
 
     </LinearLayout>

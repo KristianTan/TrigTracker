@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">TrigTracker</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="visited_title"><u>Visited Trig Points</u></string>
 
     <string name="close">Close</string>
+
+    <string name="visited">Visited</string>
+
+    <string name="menu_button_content_description">Menu button</string>
+
+    <string name="splash_screen_content_description">Splash screen - App developed by Kristian Tan</string>
 </resources>
