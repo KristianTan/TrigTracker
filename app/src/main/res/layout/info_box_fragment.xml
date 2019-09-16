@@ -39,7 +39,8 @@
                     android:layout_weight="0.2"
                     android:gravity="center"
                     android:text="info_name"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/national_park"
