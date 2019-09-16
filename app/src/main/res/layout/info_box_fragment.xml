@@ -74,6 +74,17 @@
                     android:text="@string/close"
                     android:textSize="18sp" />
 
+                <!--<Button-->
+                    <!--android:id="@+id/closeButton"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="0.2"-->
+                    <!--android:gravity="center"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:text="@string/close"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:background="@drawable/close_button_info_box"/>-->
+
             </LinearLayout>
 
         </FrameLayout>
