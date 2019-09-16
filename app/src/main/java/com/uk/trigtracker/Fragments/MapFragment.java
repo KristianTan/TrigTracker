@@ -78,6 +78,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mGoogleMap = googleMap;
 
+        mGoogleMap.getUiSettings().setCompassEnabled(false);
+
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         ArrayList<TrigPoint> points = readFromCsv();
