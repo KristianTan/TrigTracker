@@ -1,65 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="239dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.VisitedMenuFragment"
-    android:background="@drawable/visited_list_border"
-    android:orientation="vertical">
-
-    <SearchView
-        android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></SearchView>
+    android:orientation="horizontal"
+    tools:context=".Fragments.VisitedMenuFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.75"
+        android:background="@drawable/visited_list_border"
+        android:orientation="vertical">
 
-        <Button
-            android:background="@drawable/menu_button_visited_selected"
-            android:id="@+id/showVisited"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Visited"
-            android:layout_weight="1"/>
+        <SearchView
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"/>
 
-        <Button
-            android:background="@drawable/menu_button_all_unselected"
-            android:id="@+id/showAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All"
-            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/showVisited"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/menu_button_visited_selected"
+                android:text="Visited" />
+
+            <Button
+                android:id="@+id/showAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/menu_button_all_unselected"
+                android:text="All" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.83" />
+
+        <TextView
+            android:id="@+id/close"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"
+            android:gravity="center"
+            android:text="Close"
+            android:textColor="@color/lightGray"
+            android:textSize="20dp" />
     </LinearLayout>
 
-    <!--<TextView-->
-        <!--android:id="@+id/title"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_gravity="top"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/visited_title"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:textSize="20sp" />-->
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleView"
-        android:layout_width="match_parent"
+    <View
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="8"/>
-
-    <TextView
-        android:id="@+id/close"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:text="Close"
-        android:textColor="@color/lightGray"
-        android:textSize="20sp"
-        android:layout_weight="1"/>
+        android:layout_weight="0.25"
+        android:visibility="invisible" />
 
 
 </LinearLayout>
+
