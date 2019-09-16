@@ -76,7 +76,8 @@ public class VisitedMenuFragment extends Fragment {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                close.setTextColor(getResources().getColor(R.color.visited));
+//                close.setTextColor(getResources().getColor(R.color.visited));
+                close.setBackgroundColor(getResources().getColor(R.color.visited));
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStack();
             }
@@ -104,6 +105,15 @@ public class VisitedMenuFragment extends Fragment {
         });
 
         final SearchView searchView = rootView.findViewById(R.id.searchBar);
+
+
+        // Makes entire search bar clickable, instead of just icon
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

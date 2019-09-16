@@ -11,6 +11,8 @@ import com.google.android.gms.maps.model.Circle;
 import com.uk.trigtracker.Fragments.VisitedMenuFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
@@ -55,7 +57,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     }
 
     public void setAllTitles(ArrayList<String> allTitles) {
-        this.titleData = (ArrayList)allTitles.clone();
+        ArrayList<String> titles = (ArrayList)allTitles.clone();
+
+        Collections.sort(titles, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
+
+        this.titleData = titles;
     }
 
     public void clear() {

@@ -17,7 +17,8 @@
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.07"/>
+            android:layout_weight="0.07"
+            android:clickable="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,17 +47,21 @@
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.83" />
+            android:layout_weight="0.83"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/scrollbar"/>
 
         <TextView
             android:id="@+id/close"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.05"
+            android:layout_marginEnd="1dp"
             android:gravity="center"
-            android:text="Close"
-            android:textColor="@color/lightGray"
-            android:textSize="20dp" />
+            android:background="@drawable/close_button"
+            android:textColor="@android:color/black"
+            android:text="@string/close"
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <View
