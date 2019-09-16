@@ -7,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.model.Circle;
 import com.uk.trigtracker.Fragments.VisitedMenuFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private LayoutInflater layoutInflater;
@@ -52,10 +50,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         return titleData.size();
     }
 
-    public void addItem(String title) {
-        titleData.add(title);
-    }
-
     public void setAllTitles(ArrayList<String> allTitles) {
         ArrayList<String> titles = (ArrayList)allTitles.clone();
 
@@ -67,10 +61,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         });
 
         this.titleData = titles;
-    }
-
-    public void clear() {
-        this.titleData.clear();
     }
 
     public ArrayList<String> getTitleData() {

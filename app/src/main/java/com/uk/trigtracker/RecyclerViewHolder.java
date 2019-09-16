@@ -1,16 +1,12 @@
 package com.uk.trigtracker;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.Circle;
@@ -23,19 +19,16 @@ import com.uk.trigtracker.Fragments.VisitedMenuFragment;
 import com.uk.trigtracker.Models.TrigPoint;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView titleText;
     SharedPreferences prefs;
     Gson gson;
-    private VisitedMenuFragment fragment;
     RecyclerViewAdapter viewAdapter;
 
     public RecyclerViewHolder(@NonNull final View itemView, final VisitedMenuFragment fragment) {
         // ItemView is recycle_row
         super(itemView);
-        this.fragment = fragment;
 
         final ArrayList<Circle> allMarkers = fragment.getAllMarkers();
 

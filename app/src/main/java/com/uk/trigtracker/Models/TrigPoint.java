@@ -4,8 +4,6 @@ package com.uk.trigtracker.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.android.gms.maps.model.Circle;
-
 public class TrigPoint implements Parcelable {
     private Double latitude;
     private Double longitude;
@@ -74,24 +72,8 @@ public class TrigPoint implements Parcelable {
         return latitude;
     }
 
-    public void setlatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getTpNum() {
-        return tpNum;
-    }
-
-    public void setTpNum(String tpNum) {
-        this.tpNum = tpNum;
     }
 
     public String getName() {
@@ -108,22 +90,6 @@ public class TrigPoint implements Parcelable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Double getHeightM() {
-        return heightM;
-    }
-
-    public void setHeightM(Double heightM) {
-        this.heightM = heightM;
-    }
-
-    public Double getHeightFt() {
-        return heightFt;
-    }
-
-    public void setHeightFt(Double heightFt) {
-        this.heightFt = heightFt;
     }
 
     public String getPark() {

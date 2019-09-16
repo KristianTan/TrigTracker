@@ -2,7 +2,6 @@ package com.uk.trigtracker.Fragments;
 
 
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +15,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.Circle;
-import com.uk.trigtracker.Models.TrigPoint;
 import com.uk.trigtracker.R;
 import com.uk.trigtracker.RecyclerViewAdapter;
 
