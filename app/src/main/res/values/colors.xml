@@ -3,4 +3,5 @@
     <color name="lightGray">#5c5c5c</color>
     <color name="visited">#FFe63c60</color>
     <color name="visitedMenu">#c9c9c9</color>
+    <color name="white">#FFFFFF</color>
 </resources>

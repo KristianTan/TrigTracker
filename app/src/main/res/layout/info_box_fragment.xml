@@ -69,7 +69,8 @@
                     android:gravity="center"
                     android:textColor="@android:color/black"
                     android:text="@string/close"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:background="@drawable/info_box_close"/>
 
                 <!--<Button-->
                     <!--android:id="@+id/closeButton"-->

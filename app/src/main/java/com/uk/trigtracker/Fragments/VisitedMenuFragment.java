@@ -74,7 +74,7 @@ public class VisitedMenuFragment extends Fragment {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                close.setTextColor(getResources().getColor(R.color.visited));
+                close.setTextColor(getResources().getColor(R.color.white));
                 close.setBackgroundColor(getResources().getColor(R.color.visited));
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStack();
