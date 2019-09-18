@@ -1,6 +1,7 @@
 package com.uk.trigtracker;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.uk.trigtracker.Activities.MainActivity;
@@ -59,8 +62,22 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
                 }
 
 //                 Pass data to the info box fragment
+
+
+                MapFragment mapFragment = fragment.getMapFragment();
+                GoogleMap mGoogleMap = mapFragment.getmGoogleMap();
+
+                Circle selectionIndicator = mGoogleMap.addCircle(new CircleOptions()
+                        .center(new LatLng(trigPoint.getlatitude(), trigPoint.getLongitude()))
+                        .clickable(false)
+                        .radius(340)
+                        .strokeColor(fragment.getResources().getColor(R.color.selectionIndicator))
+                        .strokeWidth(12)
+                        .fillColor(Color.TRANSPARENT));
+
                 infoBoxFragment.setTrigPoint(trigPoint);
                 infoBoxFragment.setCircle(trigMarker);
+                infoBoxFragment.setSelectionIndicator(selectionIndicator);
 
                 FragmentManager fm = ((MainActivity)itemView.getContext()).getSupportFragmentManager();
                 fm.popBackStack();
@@ -70,7 +87,6 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.add(R.id.main_layout, infoBoxFragment, null).commit();
 
-                MapFragment mapFragment = fragment.getMapFragment();
                 LatLng cameraPos = trigMarker.getCenter();
                 mapFragment.getmGoogleMap().animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 12f));
 

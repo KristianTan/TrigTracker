@@ -24,6 +24,7 @@ import com.uk.trigtracker.R;
 public class InfoBoxFragment extends Fragment {
 
     Circle circle;
+    Circle selectionIndicator;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     TrigPoint trigPoint;
@@ -42,8 +43,8 @@ public class InfoBoxFragment extends Fragment {
         prefs = RootView.getContext().getSharedPreferences("MyPref", 0);
         editor = prefs.edit();
 
-        circle.setStrokeColor(Color.WHITE);
-        circle.setStrokeWidth(12);
+//        circle.setStrokeColor(Color.WHITE);
+//        circle.setStrokeWidth(10);
 
         TextView name = RootView.findViewById(R.id.info_name);
         name.setText(trigPoint.getName());
@@ -81,7 +82,7 @@ public class InfoBoxFragment extends Fragment {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                close.setTextColor(getResources().getColor(R.color.white));
+                close.setTextColor(Color.WHITE);
                 close.setBackgroundColor(getResources().getColor(R.color.visited));
 
                 FragmentManager fm = getFragmentManager();
@@ -96,14 +97,19 @@ public class InfoBoxFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        circle.setStrokeColor(Color.BLACK);
-        circle.setStrokeWidth(5);
+//        circle.setStrokeColor(Color.BLACK);
+//        circle.setStrokeWidth(5);
+        selectionIndicator.remove();
     }
 
     public void setCircle(Circle circle) {
         this.circle = circle;
     }
 
-    public void setTrigPoint(TrigPoint trigPoint) { this.trigPoint = trigPoint; };
+    public void setSelectionIndicator(Circle circle) {
+        this.selectionIndicator = circle;
+    }
+
+    public void setTrigPoint(TrigPoint trigPoint) { this.trigPoint = trigPoint; }
 
 }

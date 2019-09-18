@@ -113,6 +113,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 public void onCircleClick(Circle circle) {
                     TrigPoint tag = (TrigPoint) circle.getTag();
 
+                    Circle selectionIndicator = mGoogleMap.addCircle(new CircleOptions()
+                                    .center(new LatLng(tag.getlatitude(), tag.getLongitude()))
+                                    .clickable(false)
+                                    .radius(340)
+                                    .strokeColor(getResources().getColor(R.color.selectionIndicator))
+                                    .strokeWidth(12)
+                                    .fillColor(Color.TRANSPARENT));
+
                     LatLng cameraPos = new LatLng(tag.getlatitude(), tag.getLongitude());
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPos, 12f));
 
@@ -124,6 +132,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     // Pass data to the info box fragment
                     infoBoxFragment.setTrigPoint(tag);
                     infoBoxFragment.setCircle(circle);
+                    infoBoxFragment.setSelectionIndicator(selectionIndicator);
 
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);

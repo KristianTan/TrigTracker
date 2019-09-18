@@ -2,6 +2,7 @@ package com.uk.trigtracker.Fragments;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -74,7 +75,7 @@ public class VisitedMenuFragment extends Fragment {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                close.setTextColor(getResources().getColor(R.color.white));
+                close.setTextColor(Color.WHITE);
                 close.setBackgroundColor(getResources().getColor(R.color.visited));
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStack();
