@@ -37,6 +37,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     ArrayList<Circle> allMarkers;
+    ArrayList<TrigPoint> points;
 
     public MapFragment() {
 
@@ -44,6 +45,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        prefs = getContext().getSharedPreferences("MyPref", 0);
+        editor = prefs.edit();
+        points = readFromCsv();
+
         super.onCreate(savedInstanceState);
     }
 
@@ -56,9 +61,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        prefs = getContext().getSharedPreferences("MyPref", 0);
-        editor = prefs.edit();
 
         mMapView = mView.findViewById(R.id.map);
 
@@ -81,9 +83,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        ArrayList<TrigPoint> points = readFromCsv();
         final ArrayList<String> allTitles = new ArrayList<>();
-//        editor.clear().commit();
+
         for (TrigPoint t : points) {
             // Add circles to the map
 
@@ -132,7 +133,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
 
-
         }
 
         ImageButton menuButton = getActivity().findViewById(R.id.menuButton);
@@ -154,7 +154,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 fragmentTransaction.add(R.id.main_layout, visitedMenuFragment, null).commit();
             }
         });
-//        LatLng cameraPos = new LatLng(53.3499986, -1.83333);
 
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(53.3499986, -1.83333), 6.5f));
 
