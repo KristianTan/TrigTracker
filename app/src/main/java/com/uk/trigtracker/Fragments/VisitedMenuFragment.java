@@ -118,7 +118,9 @@ public class VisitedMenuFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 ArrayList<String> results = new ArrayList<>();
 
-                for(String s : adapter.getTitleData()) {
+                ArrayList<String> searchThrough = selected.getId() == R.id.showVisited ? visitedTrigNames : allTrigNames;
+
+                for(String s : searchThrough) {
                     if(s.toLowerCase().contains(query.toLowerCase())) {
                         results.add(s);
                     }
