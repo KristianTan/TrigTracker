@@ -117,28 +117,24 @@ public class VisitedMenuFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                ArrayList<String> results = new ArrayList<>();
 
-                ArrayList<String> searchThrough = selected.getId() == R.id.showVisited ? visitedTrigNames : allTrigNames;
-
-                for(String s : searchThrough) {
-                    if(s.toLowerCase().contains(query.toLowerCase())) {
-                        results.add(s);
-                    }
-                }
-
-                if(results.size() == 0) {
-                    results.add("No results found :(");
-                }
-
-                adapter.setAllTitles(results);
+                adapter.setAllTitles(searchForTrigPoint(query));
                 recyclerView.setAdapter(adapter);
 
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String query) {
+                if(query.isEmpty()) {
+                    ArrayList<String> choice = selected.getId() == R.id.showVisited ? visitedTrigNames : allTrigNames;
+                    adapter.setAllTitles(choice);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    adapter.setAllTitles(searchForTrigPoint(query));
+                    recyclerView.setAdapter(adapter);
+                }
+
                 return false;
             }
         });
@@ -148,7 +144,6 @@ public class VisitedMenuFragment extends Fragment {
             public boolean onClose() {
 
                 adapter.setAllTitles(selected.getId() == R.id.showVisited ? visitedTrigNames : allTrigNames);
-
                 recyclerView.setAdapter(adapter);
 
                 return false;
@@ -177,6 +172,26 @@ public class VisitedMenuFragment extends Fragment {
 
     public void setAllTrigNames(ArrayList<String> allTrigNames) {
         this.allTrigNames = allTrigNames;
+    }
+
+    public ArrayList<String> searchForTrigPoint(String query) {
+        ArrayList<String> results = new ArrayList<>();
+
+        // uncomment to search through displayed list (visited/ all) rather than always searching through all
+//                ArrayList<String> searchThrough = selected.getId() == R.id.showVisited ? visitedTrigNames : allTrigNames;
+
+        for(String s : allTrigNames) {
+            if(s.toLowerCase().contains(query.toLowerCase())) {
+                results.add(s);
+            }
+        }
+
+        if(results.size() == 0) {
+            results.add("No results found :(");
+        }
+
+        return results;
+
     }
 
 }
