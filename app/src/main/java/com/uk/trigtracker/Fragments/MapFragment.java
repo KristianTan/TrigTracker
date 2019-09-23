@@ -20,6 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.uk.trigtracker.Models.TrigPoint;
 import com.uk.trigtracker.R;
 
@@ -164,6 +165,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+
+        mGoogleMap.setLatLngBoundsForCameraTarget(new LatLngBounds(new LatLng(52.825192, -4.826647), new LatLng(55.933916, 0.237459)));
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(53.3499986, -1.83333), 6.5f));
 
     }
