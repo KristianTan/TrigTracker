@@ -165,10 +165,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+        final LatLng southWestBound = new LatLng(49.234298, -5.970560);
+        final LatLng northEastBound = new LatLng(55.933916, 2.237459);
+        final LatLng cameraPosition = new LatLng(53.3499986, -1.83333);
 
-        mGoogleMap.setLatLngBoundsForCameraTarget(new LatLngBounds(new LatLng(52.825192, -4.826647), new LatLng(55.933916, 0.237459)));
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(53.3499986, -1.83333), 6.5f));
-
+        mGoogleMap.setLatLngBoundsForCameraTarget(new LatLngBounds(southWestBound, northEastBound));
+        mGoogleMap.setMinZoomPreference(5.5f);
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPosition, 6.5f));
     }
 
     public ArrayList<TrigPoint> readFromCsv() {
