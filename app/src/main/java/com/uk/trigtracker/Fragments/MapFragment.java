@@ -118,7 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                     .center(new LatLng(tag.getlatitude(), tag.getLongitude()))
                                     .clickable(false)
                                     .radius(340)
-                                    .strokeColor(getResources().getColor(R.color.selectionIndicator))
+                                    .strokeColor(Color.WHITE)
                                     .strokeWidth(12)
                                     .fillColor(Color.TRANSPARENT));
 
