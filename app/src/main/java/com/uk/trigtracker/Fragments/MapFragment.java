@@ -171,7 +171,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mGoogleMap.setLatLngBoundsForCameraTarget(new LatLngBounds(southWestBound, northEastBound));
         mGoogleMap.setMinZoomPreference(5.5f);
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPosition, 6.5f));
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraPosition, 6.6f));
     }
 
     public ArrayList<TrigPoint> readFromCsv() {
