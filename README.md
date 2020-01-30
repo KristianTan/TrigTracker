@@ -1,6 +1,6 @@
 # TrigTracker
 
-TrigTracker is an android app for tracking which trig points you have visited from the UK national parks.
+TrigTracker is a Java android app for tracking which trig points you have visited from the UK national parks.
 
 This app uses the google maps API and the Lonewalker database of UK trig points to present a map showing all the trig points in the UK. 
 
